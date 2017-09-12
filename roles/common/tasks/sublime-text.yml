@@ -1,0 +1,16 @@
+---
+- name: Install Sublime Text 3
+  homebrew_cask:
+    name: "sublime-text"
+    state: present
+
+- name: Ensure configuration directory exists
+  file:
+    path: ~/Library/Application Support/Sublime Text 3/Packages/User
+    state: directory
+
+- name: Copy User Preferences
+  copy:
+    src: sublime-text/Preferences.sublime-settings
+    dest: ~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings
+    mode: 0644
