@@ -1,4 +1,5 @@
 #!/usr/bin/env bash -euo pipefail
 
-# TODO: update command
+ansible --version
 
+ansible-playbook personal.yml "$@"

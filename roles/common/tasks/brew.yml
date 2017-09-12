@@ -1,0 +1,17 @@
+- include_vars: brew.yml
+
+- name: Update Homebrew
+  homebrew:
+    update_homebrew: yes
+
+- name: Install Homebrew Fomulae
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ applications }}"
+
+- name: Install Homebrew Cask Fomulae
+  homebrew_cask:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ applications_cask }}"

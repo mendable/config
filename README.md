@@ -4,7 +4,7 @@ Base system config maintained through Ansible.
 
 ## First-Run (bootstrap)
 
-  1. Get the RAW_URL with authentication token for the first run by clicking 
+  1. Get the RAW_URL with authentication token for the first run by clicking
     [HERE][raw_script] and copying the redirected url in the address bar with
     authentication token appended:
 

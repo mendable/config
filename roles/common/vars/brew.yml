@@ -1,0 +1,19 @@
+applications:
+  - ansible
+  - awscli
+  - dos2unix
+  - git
+  - httpie
+  - jq
+  - nmap
+  - unrar
+  - watch
+  - xz
+
+applications_cask:
+  - docker
+  - iterm2
+  - ngrok
+  - vagrant
+  - virtualbox
+  - wireshark
