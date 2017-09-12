@@ -18,7 +18,7 @@ function install_ansible {
 function add_ssh_key_to_remote {
   echo "Please add your SSH key to Github now."
   while true; do
-    read -p  "Do you want us to open Github in a browser for you?" yn
+    read -p  "Do you want us to open Github in a browser for you? " yn
     case $yn in
       [Yy]* ) open "https://github.com/settings/keys"; break;;
       [Nn]* ) break;;
@@ -31,7 +31,7 @@ function add_ssh_key_to_remote {
 
 function assert_ssh_key_in_remote {
   while true; do
-    read -p "Is your SSH key already in GitHub?" yn
+    read -p "Is your SSH key already in GitHub? " yn
     case $yn in
       [Yy]* ) break;;
       [Nn]* ) add_ssh_key_to_remote; break;;
@@ -46,6 +46,7 @@ function configure_ssh_key {
     ssh-keygen -t rsa -b 4096 -f $SSH_KEY_FILENAME
     eval "$(ssh-agent -s)"
     ssh-add -K $SSH_KEY_FILENAME
+    assert_ssh_key_in_remote
   fi
 }
 
