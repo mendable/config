@@ -1,3 +1,4 @@
 ---
 - include: brew.yml
 - include: sublime-text.yml
+- include: bash.yml

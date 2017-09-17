@@ -6,6 +6,7 @@ applications:
   - httpie
   - jq
   - nmap
+  - tmux
   - unrar
   - watch
   - xz

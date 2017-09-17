@@ -1,0 +1,22 @@
+- name: Install Bash 4.4 because OSX is old
+  homebrew:
+    name: bash
+    state: latest
+
+- name: Copy ~/.bash_profile
+  copy:
+    src: bash/bash_profile
+    dest: ~/.bash_profile
+    mode: 0644
+
+- name: Copy ~/.bash_profile.d/*
+  copy:
+    src: bash/bash_profile.d/
+    dest: ~/.bash_profile.d
+    mode: 0644
+
+- name: Ensure ~/.bash_profile.d/private exists
+  file:
+    path: ~/.bash_profile.d/private
+    state: directory
+    mode: 0700
