@@ -1,5 +1,3 @@
 #!/usr/bin/env bash -euo pipefail
 
-ansible --version
-
 ansible-playbook personal.yml "$@"
