@@ -2,7 +2,7 @@
 
 : ${SSH_KEY_FILENAME:=~/.ssh/id_rsa}
 : ${GITHUB_REPOSITORY:=git@github.com:mendable/config.git}
-: ${DESTINATION_DIRECTORY:=~/config.d}
+: ${INSTALL_DIR:=~/.config.d}
 
 install_brew() {
   echo "Installing Brew.."
@@ -52,26 +52,34 @@ configure_ssh_key() {
 
 clone_config_repository() {
   echo "Cloning config repository.."
-  if [ ! -d $DESTINATION_DIRECTORY ]; then
-    git clone $GITHUB_REPOSITORY $DESTINATION_DIRECTORY
+  if [ ! -d $INSTALL_DIR ]; then
+    git clone $GITHUB_REPOSITORY $INSTALL_DIR
   else
-    (cd $DESTINATION_DIRECTORY && git checkout master && git pull)
+    (cd $INSTALL_DIR && git checkout master && git pull)
   fi
 }
 
+create_update_symlink() {
+  echo "Creating global update symlink"
+  if [ ! -f /usr/local/bin/update ]; then
+    ln -s $INSTALL_DIR/bin/update /usr/local/bin/update
+   fi
+ }
+
 update() {
   echo "Running update.."
-  $DESTINATION_DIRECTORY/bin/update
+  $INSTALL_DIR/bin/update
 }
 
 echo "CONFIG: "
 echo "  SSH Key: ${SSH_KEY_FILENAME}"
 echo "  Source Repository: ${GITHUB_REPOSITORY}"
-echo "  Destination Directory: ${DESTINATION_DIRECTORY}"
+echo "  Install Directory: ${INSTALL_DIR}"
 echo "----"
 
 configure_ssh_key
 install_brew
 install_ansible
 clone_config_repository
+create_update_symlink
 update

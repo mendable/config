@@ -1,3 +1,5 @@
 #!/usr/bin/env bash -euo pipefail
 
-ansible-playbook personal.yml "$@"
+: ${INSTALL_DIR:=~/.config.d}
+
+(cd $INSTALL_DIR && ansible-playbook personal.yml "$@")
