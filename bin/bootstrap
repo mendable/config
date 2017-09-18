@@ -4,18 +4,18 @@
 : ${GITHUB_REPOSITORY:=git@github.com:mendable/config.git}
 : ${DESTINATION_DIRECTORY:=~/config.d}
 
-function install_brew {
+install_brew() {
   echo "Installing Brew.."
   $(command -v brew >/dev/null 2>&1) || /usr/bin/ruby -e "$(curl \
     -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 }
 
-function install_ansible {
+install_ansible() {
   echo "Installing Ansible.."
   $(command -v ansible >/dev/null 2>&1) || brew install ansible
 }
 
-function add_ssh_key_to_remote {
+add_ssh_key_to_remote() {
   echo "Please add your SSH key to Github now."
   while true; do
     read -p  "Do you want us to open Github in a browser for you? " yn
@@ -29,7 +29,7 @@ function add_ssh_key_to_remote {
   assert_ssh_key_in_remote
 }
 
-function assert_ssh_key_in_remote {
+assert_ssh_key_in_remote() {
   while true; do
     read -p "Is your SSH key already in GitHub? " yn
     case $yn in
@@ -40,7 +40,7 @@ function assert_ssh_key_in_remote {
   done
 }
 
-function configure_ssh_key {
+configure_ssh_key() {
   echo "Configuring SSH Key.."
   if [ ! -f $SSH_KEY_FILENAME ]; then
     ssh-keygen -t rsa -b 4096 -f $SSH_KEY_FILENAME
@@ -50,16 +50,16 @@ function configure_ssh_key {
   fi
 }
 
-function clone_config_repository {
+clone_config_repository() {
   echo "Cloning config repository.."
   if [ ! -d $DESTINATION_DIRECTORY ]; then
     git clone $GITHUB_REPOSITORY $DESTINATION_DIRECTORY
   else
-    (cd $DESTINATION_DIRECTORY && git pull)
+    (cd $DESTINATION_DIRECTORY && git checkout master && git pull)
   fi
 }
 
-function update {
+update() {
   echo "Running update.."
   $DESTINATION_DIRECTORY/bin/update
 }
